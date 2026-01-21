@@ -226,7 +226,7 @@ There will occasionally be readings from the following books to provide more dep
 
 - **VS Code** (or your editor of choice) and extensions
   - _PostgreSQL_ (by Database Client) for running SQL in VS Code
-  - _Container Tools_ (by Microsoft) for Dockerfile style and container management
+  - _Container Tools_ (by Microsoft) for Containerfile style and container management
   - _sqlfluff_ (by SQLFluff) for SQL style
   - _eslint_ (by Microsoft) for JavaScript style
   - _flake8_ (by Microsoft) for Python style

@@ -18,10 +18,10 @@ Google Cloud Functions is actually implemented on top of Google Cloud Run. In th
 
 ## Create a container for Cloud Run
 
-For Cloud Run, we'll use a container definition script called a [Dockerfile](https://docs.docker.com/engine/reference/builder/#:~:text=A%20Dockerfile%20is%20a%20text,line%20to%20assemble%20an%20image.). The following Dockerfile will create a container that contains the dependencies mentioned above (GDAL for `ogr2ogr`, and the `gcloud` CLI):
+For Cloud Run, we'll use a container definition script called a **Containerfile** (also known as a [Dockerfile](https://docs.docker.com/engine/reference/builder/#:~:text=A%20Dockerfile%20is%20a%20text,line%20to%20assemble%20an%20image.)). The following Containerfile will create a container that contains the dependencies mentioned above (GDAL for `ogr2ogr`, and the `gcloud` CLI):
 
 ```docker
-# This Dockerfile is a mix of two documentation sources:
+# This Containerfile is a mix of two documentation sources:
 # https://cloud.google.com/run/docs/quickstarts/jobs/build-create-shell#writing
 # https://cloud.google.com/run/docs/tutorials/gcloud#code-container
 
@@ -49,7 +49,7 @@ RUN chmod +x ./script.sh
 CMD [ "./script.sh" ]
 ```
 
-In the same folder as `Dockerfile`, create a file named `script.sh`. When the container is built, this script file will be copied in. The script should contain the following:
+In the same folder as `Containerfile`, create a file named `script.sh`. When the container is built, this script file will be copied in. The script should contain the following:
 
 ```bash
 #!/usr/bin/env bash
@@ -88,7 +88,7 @@ gcloud builds submit \
   --tag gcr.io/musa5090s24-team<N>/generate-property-map-tiles
 ```
 
-This will tell Google Cloud Platform to start building your folder into a container according to the instructions in the `Dockerfile`. GCP will tag that container as `gcr.io/musa5090s24-team<N>/generate-property-map-tiles` (all containers built with GCP must start with `gcr.io` -- that's just a rule Google imposes). After the build is done (you'll see a bunch of output telling you what is going on at each step) you can use that container tag to deploy a Cloud Run job like so:
+This will tell Google Cloud Platform to start building your folder into a container according to the instructions in the `Containerfile`. GCP will tag that container as `gcr.io/musa5090s24-team<N>/generate-property-map-tiles` (all containers built with GCP must start with `gcr.io` -- that's just a rule Google imposes). After the build is done (you'll see a bunch of output telling you what is going on at each step) you can use that container tag to deploy a Cloud Run job like so:
 
 ```bash
 gcloud beta run jobs create generate-property-map-tiles \
@@ -110,4 +110,4 @@ gcloud beta run jobs \
 If it's working correctly, it will take a while (like 15 minutes), but will complete by copying a bunch of tile files to GCS.
 
 **Acceptance criteria:**
-- [ ] A Cloud Run job named `generate-property-map-tiles` using the Dockerfile and script above
+- [ ] A Cloud Run job named `generate-property-map-tiles` using the Containerfile and script above

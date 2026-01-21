@@ -18,7 +18,7 @@ The resulting prediction values should be loaded into a BigQuery table named `de
 * `predicted_value` -- The predicted current assessment value of the property
 * `predicted_at` -- The date and time that the predicion was run. This will be the same for all properties in the table loaded on the same day/time, but notice that you could update this table every time you run predictions, thus keeping a history of how your predictions across the city change over time.
 
-If you are using R for the model (or, in some cases, Python), you will need to create a Docker container that includes the model code and any dependencies. You can use the [rocker/tidyverse](https://hub.docker.com/r/rocker/tidyverse) image as a base image for R, and install any additional packages you need using `install.packages()`. In this case your _Dockerfile_ may look something like:
+If you are using R for the model (or, in some cases, Python), you will need to create a Docker container that includes the model code and any dependencies. You can use the [rocker/tidyverse](https://hub.docker.com/r/rocker/tidyverse) image as a base image for R, and install any additional packages you need using `install.packages()`. In this case your _Containerfile_ may look something like:
 
 ```docker
 FROM gcr.io/google.com/cloudsdktool/cloud-sdk:slim

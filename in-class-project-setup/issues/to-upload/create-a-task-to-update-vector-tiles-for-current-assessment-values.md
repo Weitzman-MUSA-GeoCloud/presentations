@@ -19,10 +19,10 @@ Google Cloud Functions is actually implemented on top of Google Cloud Run. In th
 
 ## Create a container for Cloud Run
 
-For Cloud Run, we'll use a container definition script called a [Dockerfile](https://docs.docker.com/engine/reference/builder/#:~:text=A%20Dockerfile%20is%20a%20text,line%20to%20assemble%20an%20image.). The following Dockerfile will create a container that contains the dependencies mentioned above (GDAL for `ogr2ogr`, and the `gcloud` CLI):
+For Cloud Run, we'll use a container definition script called a **Containerfile** (also known as a [Dockerfile](https://docs.docker.com/engine/reference/builder/#:~:text=A%20Dockerfile%20is%20a%20text,line%20to%20assemble%20an%20image.)). The following Containerfile will create a container that contains the dependencies mentioned above (GDAL for `ogr2ogr`, and the `gcloud` CLI):
 
 ```docker
-# This Dockerfile is a mix of two documentation sources:
+# This Containerfile is a mix of two documentation sources:
 # https://cloud.google.com/run/docs/quickstarts/jobs/build-create-shell#writing
 # https://cloud.google.com/run/docs/tutorials/gcloud#code-container
 
@@ -50,7 +50,7 @@ RUN chmod +x ./script.sh
 CMD [ "./script.sh" ]
 ```
 
-In the same folder as `Dockerfile`, create a file named `script.sh`. When the container is built, this script file will be copied in. The script should contain the following:
+In the same folder as `Containerfile`, create a file named `script.sh`. When the container is built, this script file will be copied in. The script should contain the following:
 
 ```bash
 #!/usr/bin/env bash
@@ -101,7 +101,7 @@ Deploying from source requires an Artifact Registry Docker repository to store b
 Do you want to continue (Y/n)?
 ```
 
-This is because your Dockerfile needs to be built into an image file, and that image needs to be stored somewhere (in GCP, this place where images are built and stored is called an "Artifact Registry"). Go ahead and answer `Y`.
+This is because your Containerfile needs to be built into an image file, and that image needs to be stored somewhere (in GCP, this place where images are built and stored is called an "Artifact Registry"). Go ahead and answer `Y`.
 
 ## Testing the job
 
@@ -115,6 +115,6 @@ gcloud run jobs \
 If it's working correctly, it will take a while (like 15 minutes), but will complete by copying a bunch of tile files to GCS.
 
 **Acceptance criteria:**
-- [ ] A Cloud Run job named `generate-property-map-tiles` using the Dockerfile and script above
+- [ ] A Cloud Run job named `generate-property-map-tiles` using the Containerfile and script above
 - [ ] The job should run successfully and copy a bunch of tile files to the public bucket
 - [ ] The job should be scheduled to run as part of the data pipeline
