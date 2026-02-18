@@ -575,7 +575,6 @@ pip freeze > requirements.txt
 
 ![Node.js h:32](images/Node.js_icon.png)
 
-* [`node-fetch`](https://www.npmjs.com/package/node-fetch)
 * [`csv`](https://www.npmjs.com/package/csv)
 * [`adm-zip`](https://www.npmjs.com/package/adm-zip)
 * [`gdal-async`](https://www.npmjs.com/package/gdal-async)
@@ -583,7 +582,7 @@ pip freeze > requirements.txt
 Install dependencies:
 ```bash
 npm install --save \
-  node-fetch csv adm-zip gdal-async
+  csv adm-zip gdal-async
 ```
 
 </div>

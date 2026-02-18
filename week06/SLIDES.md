@@ -208,8 +208,8 @@ In the scripts on the previous slides we used a few packages that are built into
 
 | Purpose | Python | JavaScript |
 |---------|--------|------------|
-| **HTTP requests** | `requests` | `node-fetch` |
-| **Reading/writing<br>spatial files** | `fiona`<br><br>`json`\*<br>`csv`\*<br>`zipfile`\* | `shapefile`<br>`@ngageoint/geopackage`<br>`JSON`\* or `big-json`<br>`csv-parse`<br>`adm-zip` |
+| **HTTP requests** | `requests` | `fetch`*
+| **Reading/writing<br>spatial files** | `fiona`<br><br>`json`\*<br>`csv`\*<br>`zipfile`\* | `shapefile`<br>`@ngageoint/geopackage`<br>`hyparquet`/`hyparquet-writer`<br>`JSON`\*, `big-json`, or `bfj`<br>`csv-parse`<br>`adm-zip` |
 | **Reprojecting spatial data** | `pyproj` | `proj4` |
 | **Transforming spatial data** | `shapely` | `@turf/turf` |
 
@@ -325,7 +325,10 @@ pip freeze > requirements.txt
 ![Node.js h:32](images/Node.js_icon.png)
 
 ```bash
-npm install node-fetch
+# node-fetch is now part of the 
+# standard library in Node.js, so 
+# no third-party JS packages are
+# necessary for now.
 ```
 
 </div>
@@ -358,7 +361,6 @@ print('Downloaded opa_properties.csv')
 ![Node.js h:32](images/Node.js_icon.png) `extract_phila_props.mjs`
 
 ```javascript
-import fetch from 'node-fetch';
 import fs from 'fs/promises';
 
 const url = 'https://opendata-downloads.s3.amazonaws.com/opa_properties_public.csv';
@@ -368,7 +370,7 @@ if (!response.ok) {
   throw new Error(`HTTP error! status: ${response.status}`);
 }
 
-await fs.writeFile( 'opa_properties.csv', await response.text());
+await fs.writeFile('opa_properties.csv', await response.text());
 
 console.log('Downloaded opa_properties.csv');
 ```
