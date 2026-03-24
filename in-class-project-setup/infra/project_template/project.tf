@@ -173,6 +173,15 @@ resource "google_bigquery_dataset" "derived" {
   ]
 }
 
+# For cloud builds, make sure that the default compute service account has the
+# necessary permissions.
+
+resource "google_project_iam_member" "default_compute_run_builder" {
+  project = google_project.project.project_id
+  role    = "roles/run.builder"
+  member  = "serviceAccount:${google_project.project.number}-compute@developer.gserviceaccount.com"
+}
+
 # Service Account:
 # A service account named `data-pipeline-user` is used to provide necessary
 # access to different GCP services. The following roles are assigned to the

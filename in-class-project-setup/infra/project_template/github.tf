@@ -23,11 +23,6 @@ resource "github_repository" "project" {
   }
 }
 
-resource "github_branch_protection" "main" {
-  repository_id = github_repository.project.id
-  pattern       = "main"
-}
-
 resource "github_team" "project" {
   name        = var.github_repo_name
   description = "CAMA project team for ${var.project_name}"
