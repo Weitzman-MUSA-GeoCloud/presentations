@@ -1,3 +1,4 @@
+monitoring.timeSeries.create
 orgpolicy.policy.get
 resourcemanager.projects.get
 resourcemanager.projects.list
@@ -15,9 +16,12 @@ storage.multipartUploads.create
 storage.multipartUploads.list
 storage.multipartUploads.listParts
 storage.objects.create
+storage.objects.createContext
 storage.objects.delete
+storage.objects.deleteContext
 storage.objects.get
 storage.objects.list
 storage.objects.move
 storage.objects.restore
 storage.objects.update
+storage.objects.updateContext

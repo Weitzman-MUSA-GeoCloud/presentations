@@ -249,10 +249,13 @@ resource "google_project_iam_custom_role" "team_member" {
     setunion(
       split("\n", file("${path.module}/../permissions/project_iam_admin.txt")),
       split("\n", file("${path.module}/../permissions/storage_object_user.txt")),
+      split("\n", file("${path.module}/../permissions/storage_bucket_viewer.txt")),
       split("\n", file("${path.module}/../permissions/service_account_user.txt")),
       split("\n", file("${path.module}/../permissions/service_account_token_creator.txt")),
       split("\n", file("${path.module}/../permissions/bq_data_owner.txt")),
       split("\n", file("${path.module}/../permissions/run_admin.txt")),
+      split("\n", file("${path.module}/../permissions/run_source_developer.txt")),
+      split("\n", file("${path.module}/../permissions/service_usage_consumer.txt")),
     ),
     ["", "resourcemanager.projects.list"]
   )

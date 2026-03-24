@@ -1,4 +1,5 @@
 bigquery.config.get
+bigquery.dataPolicies.attach
 bigquery.dataPolicies.create
 bigquery.dataPolicies.delete
 bigquery.dataPolicies.get
@@ -36,6 +37,7 @@ bigquery.routines.update
 bigquery.routines.updateTag
 bigquery.rowAccessPolicies.create
 bigquery.rowAccessPolicies.delete
+bigquery.rowAccessPolicies.get
 bigquery.rowAccessPolicies.getIamPolicy
 bigquery.rowAccessPolicies.list
 bigquery.rowAccessPolicies.setIamPolicy
@@ -69,5 +71,16 @@ cloudkms.keyHandles.get
 cloudkms.keyHandles.list
 cloudkms.operations.get
 cloudkms.projects.showEffectiveAutokeyConfig
+dataplex.datascans.create
+dataplex.datascans.delete
+dataplex.datascans.get
+dataplex.datascans.getData
+dataplex.datascans.getIamPolicy
+dataplex.datascans.list
+dataplex.datascans.run
+dataplex.datascans.setIamPolicy
+dataplex.datascans.update
+dataplex.operations.get
+dataplex.operations.list
 resourcemanager.projects.get
 resourcemanager.projects.list

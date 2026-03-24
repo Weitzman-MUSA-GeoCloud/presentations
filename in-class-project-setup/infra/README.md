@@ -39,6 +39,8 @@ gcloud iam roles describe roles/resourcemanager.projectIamAdmin --format json | 
 
 gcloud iam roles describe roles/storage.objectUser --format json | jq -r '.includedPermissions | join("\n")' > permissions/storage_object_user.txt
 
+gcloud iam roles describe roles/storage.bucketViewer --format json   | jq -r '.includedPermissions | join("\n")' > permissions/storage_bucket_viewer.txt
+
 gcloud iam roles describe roles/iam.serviceAccountUser --format json | jq -r '.includedPermissions | join("\n")' > permissions/service_account_user.txt
 
 gcloud iam roles describe roles/iam.serviceAccountTokenCreator --format json | jq -r '.includedPermissions | join("\n")' > permissions/service_account_token_creator.txt
@@ -46,4 +48,14 @@ gcloud iam roles describe roles/iam.serviceAccountTokenCreator --format json | j
 gcloud iam roles describe roles/bigquery.dataOwner --format json | jq -r '.includedPermissions | join("\n")' > permissions/bq_data_owner.txt
 
 gcloud iam roles describe roles/run.admin --format json | jq -r '.includedPermissions | join("\n")' > permissions/run_admin.txt
+
+# For deploying cloud run services (https://docs.cloud.google.com/run/docs/deploy-functions#required-roles)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Cloud Run Source Developer (roles/run.sourceDeveloper) on your project
+# Service Usage Consumer (roles/serviceusage.serviceUsageConsumer) on your project
+# Service Account User (roles/iam.serviceAccountUser) on the Cloud Run service identity
+
+gcloud iam roles describe roles/run.sourceDeveloper --format json | jq -r '.includedPermissions | join("\n")' > permissions/run_source_developer.txt
+
+gcloud iam roles describe roles/serviceusage.serviceUsageConsumer --format json | jq -r '.includedPermissions | join("\n")' > permissions/service_usage_consumer.txt
 ```
