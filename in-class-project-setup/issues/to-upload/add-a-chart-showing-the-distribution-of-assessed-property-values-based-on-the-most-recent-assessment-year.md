@@ -9,7 +9,7 @@ The chart will use the data in the `/configs/tax_year_assessment_bins.json` in t
 
 You may have to experiment with visualizations of the existing data to make some of these decisions. Something like Looker from BigQuery could be useful for this.
 
-Regarding the choice of technology, I recommend choosing a library such as [Apex Charts](https://apexcharts.com/) or [C3](https://c3js.org/), but the library is up to you.
+Regarding the choice of technology, I recommend choosing a library such as [Apex Charts](https://apexcharts.com/) or [billboard.js](https://naver.github.io/billboard.js/), but the library is up to you.
 
 **Acceptance criteria:**
 - [ ] A bar chart or smoothed line chart showing the number of properties that fell into each of the price bins during the most recent tax assessment year.

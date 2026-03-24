@@ -1,18 +1,10 @@
 {
-  "name": "in-class-project-setup",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "@dotenvx/dotenvx": "^0.26.0",
-    "@octokit/auth-token": "^5.0.1",
-    "@octokit/rest": "^20.0.2",
+    "@dotenvx/dotenvx": "^1.57.2",
+    "@octokit/auth-token": "^6.0.0",
+    "@octokit/rest": "^22.0.1",
     "gray-matter": "^4.0.3",
-    "yaml": "^2.7.0"
+    "mustache": "^4.2.0",
+    "yaml": "^2.8.3"
   }
 }

@@ -5,7 +5,7 @@ labels: ["Scripting","Analysis","Front-end"]
 
 This can most easily be done with a [Cloud Run shell job](https://cloud.google.com/run/docs/quickstarts/jobs/build-create-shell) using `ogr2ogr`. In brief, there are three steps involved:
 
-1. Download the `property_tile_info.geojson` data file from the `musa5090s25-team<N>-temp_data` bucket
+1. Download the `property_tile_info.geojson` data file from the `{{gcp_project}}-temp_data` bucket
 2. Use `ogr2ogr` to convert the data into a folder of [Mapbox Vector Tile](https://github.com/mapbox/vector-tile-spec) (MVT) protobuf (.pbf) files.
 3. Upload the resulting folder into a Google Cloud Storage bucket. The easiest way to do this may be to use the `gcloud` CLI.
 
@@ -58,7 +58,7 @@ set -ex
 
 # Download the property_tile_info.geojson file from the temp bucket.
 gcloud storage cp \
-  gs://musa5090s25-team<N>-temp_data/property_tile_info.geojson \
+  gs://{{gcp_project}}-temp_data/property_tile_info.geojson \
   ./property_tile_info.geojson
 
 # Convert the geojson file to a vector tileset in a folder named "properties".
@@ -76,7 +76,7 @@ ogr2ogr \
 gcloud storage cp \
   --recursive \
   ./properties \
-  gs://musa5090s25-team<N>-public/tiles
+  gs://{{gcp_project}}-public/tiles
 ```
 
 ## Deploy the Cloud Run job
@@ -86,7 +86,7 @@ In order to deploy a script to Cloud Run, use the following command:
 ```bash
 gcloud run jobs \
   deploy generate-property-map-tiles \
-  --project musa5090s25-team<N> \
+  --project {{gcp_project}} \
   --region us-east4 \
   --source . \
   --cpu 4 \
@@ -108,7 +108,7 @@ This is because your Containerfile needs to be built into an image file, and tha
 ```bash
 gcloud run jobs \
   execute generate-property-map-tiles \
-  --project musa5090s25-team<N> \
+  --project {{gcp_project}} \
   --region us-east4
 ```
 
