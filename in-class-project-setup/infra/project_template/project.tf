@@ -4,12 +4,58 @@
 # ${project_name}-temp_data      Temporary data used during processing. Files stored here will be deleted after a few days.
 # ${project_name}-public         Public data that can be accessed by anyone over HTTP.
 
+variable "billing_account_id" {}
+variable "organization_id" {}
 variable "project_name" {}
 variable "location" {}
+variable "team_members" {
+  type = list(map(string))
+}
+
+locals {
+  team_members_emails = [for member in var.team_members : member.gcp_email]
+}
+
+resource "google_project" "project" {
+  name       = var.project_name
+  project_id = var.project_name
+  org_id     = var.organization_id
+  billing_account = var.billing_account_id
+}
+
+resource "google_project_service" "bigquery" {
+  project = google_project.project.project_id
+  service = "bigquery.googleapis.com"
+}
+
+resource "google_project_service" "storage" {
+  project = google_project.project.project_id
+  service = "storage.googleapis.com"
+}
+
+resource "google_project_service" "cloudfunctions" {
+  project = google_project.project.project_id
+  service = "cloudfunctions.googleapis.com"
+}
+
+resource "google_project_service" "cloudrun" {
+  project = google_project.project.project_id
+  service = "run.googleapis.com"
+}
+
+resource "google_project_service" "workflows" {
+  project = google_project.project.project_id
+  service = "workflows.googleapis.com"
+}
+
+resource "google_project_service" "iam" {
+  project = google_project.project.project_id
+  service = "iam.googleapis.com"
+}
 
 resource "google_storage_bucket" "raw_data" {
-  project                     = var.project_name
-  name                        = format("%s-raw_data", var.project_name)
+  project                     = google_project.project.project_id
+  name                        = format("%s-raw_data", google_project.project.project_id)
   location                    = var.location
   uniform_bucket_level_access = true
 
@@ -17,11 +63,15 @@ resource "google_storage_bucket" "raw_data" {
     enabled                = true
     terminal_storage_class = "ARCHIVE"
   }
+
+  depends_on = [
+    google_project_service.storage
+  ]
 }
 
 resource "google_storage_bucket" "prepared_data" {
-  project                     = var.project_name
-  name                        = format("%s-prepared_data", var.project_name)
+  project                     = google_project.project.project_id
+  name                        = format("%s-prepared_data", google_project.project.project_id)
   location                    = var.location
   uniform_bucket_level_access = true
 
@@ -29,11 +79,15 @@ resource "google_storage_bucket" "prepared_data" {
     enabled                = true
     terminal_storage_class = "ARCHIVE"
   }
+
+  depends_on = [
+    google_project_service.storage
+  ]
 }
 
 resource "google_storage_bucket" "temp_data" {
-  project                     = var.project_name
-  name                        = format("%s-temp_data", var.project_name)
+  project                     = google_project.project.project_id
+  name                        = format("%s-temp_data", google_project.project.project_id)
   location                    = var.location
   uniform_bucket_level_access = true
 
@@ -46,11 +100,15 @@ resource "google_storage_bucket" "temp_data" {
       type = "Delete"
     }
   }
+
+  depends_on = [
+    google_project_service.storage
+  ]
 }
 
 resource "google_storage_bucket" "public" {
-  project                     = var.project_name
-  name                        = format("%s-public", var.project_name)
+  project                     = google_project.project.project_id
+  name                        = format("%s-public", google_project.project.project_id)
   location                    = var.location
   uniform_bucket_level_access = true
 
@@ -64,12 +122,20 @@ resource "google_storage_bucket" "public" {
     method          = ["GET", "POST", "PUT", "OPTIONS", "HEAD", "DELETE"]
     response_header = ["*"]
   }
+
+  depends_on = [
+    google_project_service.storage
+  ]
 }
 
 resource "google_storage_bucket_iam_member" "public_viewer" {
   bucket = google_storage_bucket.public.name
   role   = "roles/storage.objectViewer"
   member = "allUsers"
+
+  depends_on = [
+    google_storage_bucket.public
+  ]
 }
 
 # BigQuery Datasets:
@@ -78,21 +144,33 @@ resource "google_storage_bucket_iam_member" "public_viewer" {
 # derived  Data that has been derived from core data. Outputs from analyses or models go here.
 
 resource "google_bigquery_dataset" "source" {
-  project    = var.project_name
+  project    = google_project.project.project_id
   dataset_id = "source"
   location   = var.location
+
+  depends_on = [
+    google_project_service.bigquery
+  ]
 }
 
 resource "google_bigquery_dataset" "core" {
-  project    = var.project_name
+  project    = google_project.project.project_id
   dataset_id = "core"
   location   = var.location
+
+  depends_on = [
+    google_project_service.bigquery
+  ]
 }
 
 resource "google_bigquery_dataset" "derived" {
-  project    = var.project_name
+  project    = google_project.project.project_id
   dataset_id = "derived"
   location   = var.location
+
+  depends_on = [
+    google_project_service.bigquery
+  ]
 }
 
 # Service Account:
@@ -106,50 +184,54 @@ resource "google_bigquery_dataset" "derived" {
 # - Workflows Invoker
 
 resource "google_service_account" "data_pipeline_user" {
-  project      = var.project_name
+  project      = google_project.project.project_id
   account_id   = "data-pipeline-user"
   display_name = "Data Pipeline User"
+
+  depends_on = [
+    google_project_service.iam
+  ]
 }
 
 resource "google_project_iam_member" "data_pipeline_user_storage_object_admin" {
-  project = var.project_name
+  project = google_project.project.project_id
   role    = "roles/storage.objectAdmin"
   member  = "serviceAccount:${google_service_account.data_pipeline_user.email}"
 }
 
 resource "google_project_iam_member" "data_pipeline_user_bigquery_job_user" {
-  project = var.project_name
+  project = google_project.project.project_id
   role    = "roles/bigquery.jobUser"
   member  = "serviceAccount:${google_service_account.data_pipeline_user.email}"
 }
 
 resource "google_project_iam_member" "data_pipeline_user_bigquery_data_owner" {
-  project = var.project_name
+  project = google_project.project.project_id
   role    = "roles/bigquery.dataOwner"
   member  = "serviceAccount:${google_service_account.data_pipeline_user.email}"
 }
 
 resource "google_project_iam_member" "data_pipeline_user_cloud_functions_invoker" {
-  project = var.project_name
+  project = google_project.project.project_id
   role    = "roles/cloudfunctions.invoker"
   member  = "serviceAccount:${google_service_account.data_pipeline_user.email}"
 }
 
 resource "google_project_iam_member" "data_pipeline_user_cloud_run_invoker" {
-  project = var.project_name
+  project = google_project.project.project_id
   role    = "roles/run.invoker"
   member  = "serviceAccount:${google_service_account.data_pipeline_user.email}"
 }
 
 resource "google_project_iam_member" "data_pipeline_user_run_developer" {
-  project = var.project_name
+  project = google_project.project.project_id
   # Might be necessary for deploying Cloud Run services.
   role   = "roles/run.developer"
   member = "serviceAccount:${google_service_account.data_pipeline_user.email}"
 }
 
 resource "google_project_iam_member" "data_pipeline_user_workflows_invoker" {
-  project = var.project_name
+  project = google_project.project.project_id
   role    = "roles/workflows.invoker"
   member  = "serviceAccount:${google_service_account.data_pipeline_user.email}"
 }
@@ -159,7 +241,7 @@ resource "google_project_iam_member" "data_pipeline_user_workflows_invoker" {
 # the permissions from the Project IAM Admin role and any other roles we want.
 
 resource "google_project_iam_custom_role" "team_member" {
-  project     = var.project_name
+  project     = google_project.project.project_id
   role_id     = "teamMember"
   title       = "Team Member"
   description = "Combination of Project IAM Admin and any other roles"
@@ -174,4 +256,16 @@ resource "google_project_iam_custom_role" "team_member" {
     ),
     ["", "resourcemanager.projects.list"]
   )
+}
+
+resource "google_project_iam_member" "team_members" {
+  for_each = toset(local.team_members_emails)
+
+  project = google_project.project.project_id
+  role    = google_project_iam_custom_role.team_member.id
+  member  = "user:${each.value}"
+}
+
+output "team_members" {
+  value = local.team_members_emails
 }

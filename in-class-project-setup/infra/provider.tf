@@ -4,12 +4,21 @@ terraform {
       source  = "hashicorp/google"
       version = "6.8.0"
     }
+
+    github = {
+      source  = "integrations/github"
+      version = "~> 6.0"
+    }
   }
 
   backend "gcs" {
     bucket = "weitzman-musa-geocloud-tfstate"
-    prefix = "tf/state-s25"
+    prefix = "tf/state-s26"
   }
+}
+
+provider "github" {
+  owner = "Weitzman-MUSA-GeoCloud"
 }
 
 provider "google" {

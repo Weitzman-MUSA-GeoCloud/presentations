@@ -2,25 +2,32 @@
 
 This directory contains the infrastructure code for the in-class project setup. The infrastructure is defined using [OpenTofu](https://opentofu.org/docs/intro/), a fork of [Terraform](https://www.terraform.io/).
 
-## Initializing for a project
+## Initializing for all projects
 
-Create the new project, and attach to a billing account: https://console.cloud.google.com/billing/linkedaccount
+Create an _.auto.tfvars_ file with the billing account ID:
+
+```hcl
+billing_account_id = ""
+```
 
 You will probably have to set the application default credentials:
 
 ```bash
-export gcpproject=musa5090s25-...
-gcloud auth application-default login --project ${gcpproject}
-gcloud config set project ${gcpproject}
-gcloud storage buckets create gs://${gcpproject}-config
+gcloud auth application-default login --project weitzman-musa-geocloud
+gcloud config set project weitzman-musa-geocloud
 ```
 
-Update the _variables.tf_ file, setting the project ID as the `cama_prefix` value.
+You may also have to log into `gh`:
+
+```bash
+gh auth login
+```
 
 Afterwards, to initialize the infrastructure (**Note: Be careful running `init` with `-reconfigure` as it will get rid of any existing configuration state data, if there is some**):
 
 ```bash
 tofu init -reconfigure
+tofu apply
 ```
 
 ## Updating roles/team_member permissions
