@@ -50,10 +50,13 @@ gcloud iam roles describe roles/run.admin --format json | jq -r '.includedPermis
 # For deploying cloud run services (https://docs.cloud.google.com/run/docs/deploy-functions#required-roles)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Cloud Run Source Developer (roles/run.sourceDeveloper) on your project
+# Cloud Functions Developer (roles/cloudfunctions.developer) on your project
 # Service Usage Consumer (roles/serviceusage.serviceUsageConsumer) on your project
 # Service Account User (roles/iam.serviceAccountUser) on the Cloud Run service identity
 
 gcloud iam roles describe roles/run.sourceDeveloper --format json | jq -r '.includedPermissions | join("\n")' > permissions/run_source_developer.txt
+
+gcloud iam roles describe roles/cloudfunctions.developer --format json | jq -r '.includedPermissions | join("\n")' > permissions/cloudfunctions_developer.txt
 
 gcloud iam roles describe roles/serviceusage.serviceUsageConsumer --format json | jq -r '.includedPermissions | join("\n")' > permissions/service_usage_consumer.txt
 ```
