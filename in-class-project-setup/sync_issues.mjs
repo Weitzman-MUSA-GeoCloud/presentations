@@ -47,8 +47,8 @@ for (let teamNumber = 1; teamNumber <= NUM_TEAMS; ++teamNumber) {
     const { title, labels } = frontMatter;
     await updateIssue(GITHUB_OWNER, repo, issueNumber, title, body, labels);
 
-    // Wait 3 seconds between requests to avoid rate limiting
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    // Wait half a second between requests to avoid rate limiting
+    await new Promise(resolve => setTimeout(resolve, 500));
   }
 }
 
