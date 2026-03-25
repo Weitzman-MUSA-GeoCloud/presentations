@@ -10,7 +10,7 @@ resource "github_repository" "project" {
   source_owner = "Weitzman-MUSA-GeoCloud"
   source_repo  = "cama-template"
   description  = "CAMA project repository for ${var.project_name}"
-  visibility   = "private"
+  visibility   = "public"
   has_issues   = true
   has_projects = true
 
