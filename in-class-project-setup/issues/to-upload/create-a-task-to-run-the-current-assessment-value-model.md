@@ -3,6 +3,14 @@ title: "Create a task to run the current assessment value model"
 labels: ["Scripting","Data Science"]
 ---
 
+## Motivation
+
+In relatively active property markets such as Philadelphia, the prices of properties in different areas of the city frequently fluctuate. As a result, we will want to re-train our valuation model on a regular basis to ensure that it is capturing the most up to date information about the property market.
+
+> NOTE: In reality, training a model like this would probably not need to happen more frequently than on a quarterly basis. However, for the purposes of this project, you should re-train the model weekly.
+
+## Implementation
+
 The task should either be implemented using a Cloud Function (if the model is implemented in SQL or Python) or using a Cloud Run container (if the model is implemented in R or Python).
 
 The input training data should be prepared in a table named `derived.current_assessments_model_training_data`.
