@@ -37,9 +37,7 @@ Run the following:
 ```bash
 gcloud iam roles describe roles/resourcemanager.projectIamAdmin --format json | jq -r '.includedPermissions | join("\n")' > permissions/project_iam_admin.txt
 
-gcloud iam roles describe roles/storage.objectUser --format json | jq -r '.includedPermissions | join("\n")' > permissions/storage_object_user.txt
-
-gcloud iam roles describe roles/storage.bucketViewer --format json   | jq -r '.includedPermissions | join("\n")' > permissions/storage_bucket_viewer.txt
+gcloud iam roles describe roles/storage.admin --format json | jq -r '.includedPermissions | join("\n")' > permissions/storage_admin.txt
 
 gcloud iam roles describe roles/iam.serviceAccountUser --format json | jq -r '.includedPermissions | join("\n")' > permissions/service_account_user.txt
 

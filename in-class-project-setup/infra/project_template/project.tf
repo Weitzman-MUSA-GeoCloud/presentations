@@ -267,8 +267,7 @@ resource "google_project_iam_custom_role" "team_member" {
   permissions = setsubtract(
     setunion(
       split("\n", file("${path.module}/../permissions/project_iam_admin.txt")),
-      split("\n", file("${path.module}/../permissions/storage_object_user.txt")),
-      split("\n", file("${path.module}/../permissions/storage_bucket_viewer.txt")),
+      split("\n", file("${path.module}/../permissions/storage_admin.txt")),
       split("\n", file("${path.module}/../permissions/service_account_user.txt")),
       split("\n", file("${path.module}/../permissions/service_account_token_creator.txt")),
       split("\n", file("${path.module}/../permissions/bq_data_owner.txt")),

@@ -1,2 +1,0 @@
-storage.buckets.get
-storage.buckets.list
