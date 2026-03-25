@@ -7,6 +7,7 @@ locals {
     "team4",
     "team5",
     "team6",
+    "team7",
   ])
 }
 

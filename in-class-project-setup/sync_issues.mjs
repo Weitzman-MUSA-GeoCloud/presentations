@@ -8,7 +8,7 @@
 // Update the following variables to match your course
 const GITHUB_OWNER = 'Weitzman-MUSA-GeoCloud';
 const TERM = 's26';  // e.g. 's26' for Spring 2026, 'f26' for Fall 2026, etc.
-const NUM_TEAMS = 6;
+const NUM_TEAMS = 7;
 // =============================================================================
 
 import { Octokit } from "@octokit/rest";
@@ -53,7 +53,7 @@ for (let teamNumber = 1; teamNumber <= NUM_TEAMS; ++teamNumber) {
 }
 
 async function updateIssue(owner, repo, issue_number, title, body, labels) {
-  console.log(`Updating issue ${issue_number} in ${owner}/${repo}`);
+  console.log(`Syncing issue ${issue_number} in ${owner}/${repo}`);
   try {
     await octokit.request('PATCH /repos/{owner}/{repo}/issues/{issue_number}', {
       owner: owner,
