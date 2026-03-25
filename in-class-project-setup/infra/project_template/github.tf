@@ -23,6 +23,15 @@ resource "github_repository" "project" {
   }
 }
 
+resource "github_branch_protection" "default" {
+  repository_id = github_repository.project.node_id
+  pattern       = "main"
+
+  # Prevent direct pushes and require PRs
+  required_pull_request_reviews {
+    required_approving_review_count = 1
+  }
+}
 resource "github_team" "project" {
   name        = var.github_repo_name
   description = "CAMA project team for ${var.project_name}"
