@@ -21,7 +21,11 @@ There are pros and cons to each approach. The first approach is simpler to imple
 
 - This issue, along with issue #4, is an example of the first approach.
 
-## Task
+> **A note about organizing your code...**
+>
+> The Cloud Functions and Workflows for the projects should be stored in subfolders of the `tasks/` folder of your project repository. I recommend referring to the [Week 8](https://github.com/Weitzman-MUSA-GeoCloud/course-info/tree/main/week08) video and resources for guidance on how to write, organize, test, and deploy Cloud Functions, and [Week 9](https://github.com/Weitzman-MUSA-GeoCloud/course-info/tree/main/week09) video and resources for guidance on how to run SQL from within Cloud Functions.
+
+## Implementation
 
 Dynamically populate (i.e. `CREATE OR REPLACE`) a table named `derived.tax_year_assessment_bins`. Imagine that the data in this table informs a distribution of the assessed values. The values should be divided into bins of some consistent widths either on a linear or logarithmic scale, and the number of properties with assessed values in each bin should be counted up. For example, it could look something like this:
 

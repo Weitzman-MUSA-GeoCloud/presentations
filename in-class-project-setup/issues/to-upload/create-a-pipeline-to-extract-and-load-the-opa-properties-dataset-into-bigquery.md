@@ -20,6 +20,10 @@ All ingest processes in this project will follow this general pattern:
 
 Your SQL commands should each be stored in their own files (e.g. `source_phl_opa_properties.sql` and `core_phl_opa_properties.sql`), but should be run from a Cloud Function as part of your pipeline. For an example, see the `run_sql` Cloud Function code at https://github.com/Weitzman-MUSA-GeoCloud/course-info/tree/main/week08/explore_phila_data/run_sql
 
+> **A note about organizing your code...**
+>
+> The Cloud Functions and Workflows for the projects should be stored in subfolders of the `tasks/` folder of your project repository. I recommend referring to the [Week 8](https://github.com/Weitzman-MUSA-GeoCloud/course-info/tree/main/week08) video and resources for guidance on how to write, organize, test, and deploy Cloud Functions, and [Week 9](https://github.com/Weitzman-MUSA-GeoCloud/course-info/tree/main/week09) video and resources for guidance on how to run SQL from within Cloud Functions.
+
 **Acceptance Criteria:**
 - [ ] A Cloud Function named `extract-opa-properties` to fetch the OPA Properties dataset and upload into a Cloud Storage bucket named `{{gcp_project}}-raw_data` into a folder named `opa_properties/`
 - [ ] A Cloud Function named `prepare-opa-properties` to prepare the file in `gs://{{gcp_project}}-raw_data/opa_properties/` for backing an external table. The new file should be stored in JSON-L or Parquet format in a bucket named `{{gcp_project}}-prepared_data` and a file named `opa_properties/data.jsonl` or `opa_properties/data.parquet`. All field names should be lowercased.
