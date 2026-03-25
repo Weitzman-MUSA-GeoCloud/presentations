@@ -3,7 +3,7 @@ title: "Create a pipeline to extract and load the OPA Assessment History dataset
 labels: ["Scripting"]
 ---
 
-Refer to issue #1 for detail.
+- Refer to issue #1 for detail.
 
 **Acceptance Criteria:**
 - [ ] A Cloud Function named `extract-opa-assessments` to fetch the PWD Parcels dataset and upload into a Cloud Storage bucket named `{{gcp_project}}-raw_data` into a folder named `opa_assessments/`

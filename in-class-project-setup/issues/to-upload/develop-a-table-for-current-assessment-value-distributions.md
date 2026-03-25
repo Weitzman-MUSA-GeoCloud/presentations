@@ -3,7 +3,8 @@ title: "Develop a table for current assessment value distributions"
 labels: ["Analysis"]
 ---
 
-Create a table `derived.current_assessment_bins`. Imagine that the data in this table informs a histogram of the assessed values. This is similar to Issue #8, except only for the current values as calculated by the valuation model.
+Create a table `derived.current_assessment_bins`. Imagine that the data in this table informs a histogram of the assessed values.
+- This is similar to issue #7, except only for the current values as calculated by the valuation model.
 
 The table should have the following columns:
 * `lower_bound` -- The minimum assessed value cutoff in the histogram bin

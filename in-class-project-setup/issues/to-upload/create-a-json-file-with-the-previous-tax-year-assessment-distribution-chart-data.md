@@ -14,7 +14,7 @@ Create a cloud function that will query the `derived.current_assessment_bins` ta
 ]
 ```
 
-See issue #9 for more detail on the source table. Work with the front-end team to determine the best way to represent this data in the chart.
+- Work with the front-end team to determine the best way to represent this data in the chart. See issue #7 for more detail on the source table.
 
 Store the file in the `gs://{{gcp_project}}-public` bucket in a file named `/configs/tax_year_assessment_bins.json`. This file can be fetched and used to help populate the chart for the previous tax year's assessment values.
 
