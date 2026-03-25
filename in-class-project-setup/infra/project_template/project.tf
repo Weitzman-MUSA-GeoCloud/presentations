@@ -43,6 +43,16 @@ resource "google_project_service" "cloudrun" {
   service = "run.googleapis.com"
 }
 
+resource "google_project_service" "cloudbuild" {
+  project = google_project.project.project_id
+  service = "cloudbuild.googleapis.com"
+}
+
+resource "google_project_service" "artifactregistry" {
+  project = google_project.project.project_id
+  service = "artifactregistry.googleapis.com"
+}
+
 resource "google_project_service" "workflows" {
   project = google_project.project.project_id
   service = "workflows.googleapis.com"
