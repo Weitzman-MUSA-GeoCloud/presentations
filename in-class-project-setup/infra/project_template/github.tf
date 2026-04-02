@@ -14,6 +14,12 @@ resource "github_repository" "project" {
   has_issues   = true
   has_projects = true
 
+  homepage_url = "https://weitzman-musa-geocloud.github.io/${var.github_repo_name}/"
+
+  pages {
+    build_type = "workflow"
+  }
+
   lifecycle {
     ignore_changes = [
       fork,
