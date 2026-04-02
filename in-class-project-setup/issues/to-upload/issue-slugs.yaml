@@ -26,3 +26,6 @@ issues:
   - add-a-chart-showing-the-distribution-of-assessed-property-values-based-on-the-most-recent-assessment-year
   - add-a-chart-showing-the-distribution-of-predicted-property-values
   - export-a-json-file-with-map-styling-metadata
+
+  # New Issues (2026)
+  # - create-a-task-to-export-a-geojson-file-with-assessment-values-for-each-residential-property

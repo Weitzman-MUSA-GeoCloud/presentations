@@ -3,7 +3,18 @@ title: "Create a task to update vector tiles for current assessment values"
 labels: ["Scripting","Analysis","Front-end"]
 ---
 
-This can most easily be done with a [Cloud Run shell job](https://cloud.google.com/run/docs/quickstarts/jobs/build-create-shell) using `ogr2ogr`. In brief, there are three steps involved:
+## Motivation
+
+In your UI, you are going to have a map that shows a layer with the previous and/or current assessment values for all the residential properties in Philadelphia -- more than 500,000 polygons. This much data would be a challenge for a dynamic front-end for a couple of primary reasons:
+
+1. **Download size** -- your layer is going to need a several attributes on each feature -- any data that you need to determine the color of the feature (e.g. based on the distribution of market values), as well as any data that you might want to include in a hover or popup (e.g. address, parcel number, or other characteristics driving the market value estimate). This layer is going to be over 100MB. That is _not_ something you want your users to have to download all at once.
+2. **Lots of drawing** -- even if you could get the data to your users, rendering 500,000 polygons on a map at the same time is going to be a challenge for most web browsers. JavaScript mapping libraries draw each feature individually, and even though modern browsers and machines are very fast, they are not infinitely fast. Somewhere on the order of 10-50k features in memory at one time is probably the upper limit for a smooth user experience.
+
+For web maps, the standard solution for this volume of data is to use tiles. See this [slide deck](https://docs.google.com/presentation/d/1Qvz0I6I9BQi3b2GOUZVETsvjTnSect3Sb7q_FcNljq0/edit?usp=sharing) from the JavaScript for Planners and Designers (MUSA 6110) course for an overview on map tiles.
+
+## Overview
+
+This issue walks through creating a vector tile layer for the residential properties in Philadelphia. This can most easily be done with a [Cloud Run shell job](https://cloud.google.com/run/docs/quickstarts/jobs/build-create-shell) using `ogr2ogr`. In brief, there are three steps involved (note that these steps assume that you have already created a Cloud Function to export a geojson file of the residential properties to the `{{gcp_project}}-temp_data` bucket):
 
 1. Download the `property_tile_info.geojson` data file from the `{{gcp_project}}-temp_data` bucket
 2. Use `ogr2ogr` to convert the data into a folder of [Mapbox Vector Tile](https://github.com/mapbox/vector-tile-spec) (MVT) protobuf (.pbf) files.
