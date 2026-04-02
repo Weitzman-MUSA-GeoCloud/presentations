@@ -295,6 +295,14 @@ resource "google_project_iam_member" "team_members" {
   member  = "user:${each.value}"
 }
 
+resource "google_project_iam_member" "admins" {
+  for_each = toset(local.team_members_emails)
+
+  project = google_project.project.project_id
+  role    = "roles/admin"
+  member  = "user:${each.value}"
+}
+
 output "team_members" {
   value = local.team_members_emails
 }
