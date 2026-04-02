@@ -35,32 +35,40 @@ tofu apply
 Run the following:
 
 ```bash
+gcloud iam roles describe roles/serviceusage.serviceUsageConsumer --format json | jq -r '.includedPermissions | join("\n")' > permissions/service_usage_consumer.txt
+
 gcloud iam roles describe roles/resourcemanager.projectIamAdmin --format json | jq -r '.includedPermissions | join("\n")' > permissions/project_iam_admin.txt
 
+# Managing blobs and buckets
 gcloud iam roles describe roles/storage.admin --format json | jq -r '.includedPermissions | join("\n")' > permissions/storage_admin.txt
+
+# Creating and managing service accounts
+gcloud iam roles describe roles/iam.serviceAccountUser --format json | jq -r '.includedPermissions | join("\n")' > permissions/service_account_user.txt
 
 gcloud iam roles describe roles/iam.serviceAccountTokenCreator --format json | jq -r '.includedPermissions | join("\n")' > permissions/service_account_token_creator.txt
 
+gcloud iam roles describe roles/iam.serviceAccountKeyAdmin --format json | jq -r '.includedPermissions | join("\n")' > permissions/service_account_key_admin.txt
+
+# Managing BigQuery data and running queries
 gcloud iam roles describe roles/bigquery.dataOwner --format json | jq -r '.includedPermissions | join("\n")' > permissions/bq_data_owner.txt
 
-gcloud iam roles describe roles/run.admin --format json | jq -r '.includedPermissions | join("\n")' > permissions/run_admin.txt
+gcloud iam roles describe roles/bigquery.jobUser --format json | jq -r '.includedPermissions | join("\n")' > permissions/bq_job_user.txt
 
-# Cloud Run Source Developer (roles/run.sourceDeveloper) on your project
-# Cloud Functions Developer (roles/cloudfunctions.developer) on your project
-# Workflows Admin (roles/workflows.admin) on your project
-# Service Usage Consumer (roles/serviceusage.serviceUsageConsumer) on your project
-# Service Account User (roles/iam.serviceAccountUser) on the Cloud Run service identity
-# Service Account Key Admin (roles/iam.serviceAccountKeyAdmin)
+# Managing and deploying Cloud Run services
+gcloud iam roles describe roles/run.admin --format json | jq -r '.includedPermissions | join("\n")' > permissions/run_admin.txt
 
 gcloud iam roles describe roles/run.sourceDeveloper --format json | jq -r '.includedPermissions | join("\n")' > permissions/run_source_developer.txt
 
+# Deploying Cloud Functions
 gcloud iam roles describe roles/cloudfunctions.developer --format json | jq -r '.includedPermissions | join("\n")' > permissions/cloudfunctions_developer.txt
 
-gcloud iam roles describe roles/serviceusage.serviceUsageConsumer --format json | jq -r '.includedPermissions | join("\n")' > permissions/service_usage_consumer.txt
-
-gcloud iam roles describe roles/iam.serviceAccountUser --format json | jq -r '.includedPermissions | join("\n")' > permissions/service_account_user.txt
-
-gcloud iam roles describe roles/iam.serviceAccountKeyAdmin --format json | jq -r '.includedPermissions | join("\n")' > permissions/service_account_key_admin.txt
-
+# Deploying Workflows
 gcloud iam roles describe roles/workflows.admin --format json | jq -r '.includedPermissions | join("\n")' > permissions/workflows_admin.txt
+
+# Viewing logs and errors
+gcloud iam roles describe roles/logging.viewer --format json | jq -r '.includedPermissions | join("\n")' > permissions/logging_viewer.txt
+
+gcloud iam roles describe roles/errorreporting.user --format json | jq -r '.includedPermissions | join("\n")' > permissions/errorreporting_user.txt
+
+gcloud iam roles describe roles/monitoring.viewer --format json | jq -r '.includedPermissions | join("\n")' > permissions/monitoring_viewer.txt
 ```
