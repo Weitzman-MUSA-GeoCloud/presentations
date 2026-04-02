@@ -12,6 +12,13 @@ In your UI, you are going to have a map that shows a layer with the previous and
 
 For web maps, the standard solution for this volume of data is to use tiles. See this [slide deck](https://docs.google.com/presentation/d/1Qvz0I6I9BQi3b2GOUZVETsvjTnSect3Sb7q_FcNljq0/edit?usp=sharing) from the JavaScript for Planners and Designers (MUSA 6110) course for an overview on map tiles.
 
+There are several ways to create a vector tile set. For example:
+- [Mapbox Tiling Service (MTS)](https://www.mapbox.com/mts) using its API (refer to the [MTS API Docs](https://docs.mapbox.com/api/maps/mapbox-tiling-service/))
+- [Tippecanoe](https://github.com/felt/tippecanoe) (a project started at Mapbox, now maintained by [Felt](https://felt.com/)) using its command line interface
+- `ogr2ogr` using the [GDAL Mapbox Vector Tile (MVT) driver](https://gdal.org/drivers/vector/mvt.html)
+
+Using MTS or Tippecanoe is nice because they can generate both raster and vector tiles, but `ogr2ogr` will get the job done, and since we've already used it in this course, it is the path that I'll walk through here. If you choose to use a different tool, that is fine.
+
 ## Overview
 
 This issue walks through creating a vector tile layer for the residential properties in Philadelphia. This can most easily be done with a [Cloud Run shell job](https://cloud.google.com/run/docs/quickstarts/jobs/build-create-shell) using `ogr2ogr`. In brief, there are three steps involved (note that these steps assume that you have already created a Cloud Function to export a geojson file of the residential properties to the `{{gcp_project}}-temp_data` bucket):
