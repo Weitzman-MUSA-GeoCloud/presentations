@@ -131,6 +131,7 @@ resource "google_storage_bucket" "public" {
     origin          = ["*"]
     method          = ["GET", "POST", "PUT", "OPTIONS", "HEAD", "DELETE"]
     response_header = ["*"]
+    max_age_seconds = 3600
   }
 
   depends_on = [
