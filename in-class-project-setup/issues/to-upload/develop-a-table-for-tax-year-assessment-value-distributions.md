@@ -37,7 +37,7 @@ The table should have the following columns:
 * `upper_bound` -- The maximum assessed value cutoff in the histogram bin
 * `property_count` -- The number of properties that fall between that min and max value
 
-Use the `source.opa_assessments` table to build this  table.
+Use the `core.opa_assessments` table to build this  table.
 
 **Acceptance criteria:**
 - [ ] A Cloud Function to run the `CREATE TABLE` SQL to generate the `derived.tax_year_assessment_bins` table. The actual SQL statement should be in its own _.sql_ file (e.g. `create_derived_tax_year_assessment_bins.sql`). See the `run_sql` task from the course_info as an example (https://github.com/Weitzman-MUSA-GeoCloud/course-info/tree/main/week08/explore_phila_data/run_sql)
