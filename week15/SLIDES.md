@@ -11,8 +11,7 @@ style: |
   }
 ---
 
-# Week 10: Project Wrap-Up
-## Wednesday, April 29
+# In-class Project Wrap-Up
 
 ---
 
