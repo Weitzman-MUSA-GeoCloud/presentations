@@ -17,13 +17,11 @@ style: |
 
 ## Not a presentation day
 
-Last year we did team presentations. This year, we're doing something different.
+Instead of each team presenting their project end-to-end, we're going to have **three structured discussions** — one for each major component of the project.
 
-Instead of each team presenting end-to-end, we're going to have **three structured discussions** — one for each major component of the project.
+Each team will say something about what they did, then we discuss as a class.
 
-You'll each say something about what you did, then we discuss as a class.
-
-The goal is to compare approaches and reflect together, not to show a polished product.
+The goal is to compare approaches and reflect together, not to show a polished presentation.
 
 ---
 
@@ -31,19 +29,26 @@ The goal is to compare approaches and reflect together, not to show a polished p
 
 | Time | Block |
 |------|-------|
-| 0:00–1:00 | **Block 1:** Data Pipelines |
-| 1:05–2:00 | **Block 2:** Sale Price Modeling |
-| 2:05–3:00 | **Block 3:** UI & Application |
+| 1:15–1:25 | **Arrive & settle in** |
+| 1:25–2:10 | **Block 1:** Data Pipelines |
+| 2:15–2:20 | **Break** |
+| 2:20–3:20 | **Block 2:** Sale Price Modeling |
+| 3:20–3:30 | **Break** |
+| 3:30–4:30 | **Block 3:** UI & Application |
+| 4:30–4:45 | **Wrap-up** |
 
-Each block: teams share (~5 min each), then open discussion (~20 min).
+Each block: teams share (~5 min each), then open discussion (~15-30 min).
 
 ---
 
 ## Pre-class prep (due Wednesday morning)
 
-Fill in your team's row in the shared Google Sheet — **one row per block**.
+Fill out your team's responses in the shared Google Form. For each block, make sure to think about:
 
-This is the main prep I'm asking for. It should take 20–30 min. I'll use it to see what's coming, and at the start of each block we'll project the full table so everyone can see where teams landed before anyone speaks.
+- Aspects you think were clever, interesting, or particularly challenging
+- What you'd change if you had more time
+
+This is the main prep I'm asking for. It should take 20–30 min. I'll use it to see what's coming.
 
 ---
 
@@ -51,9 +56,10 @@ This is the main prep I'm asking for. It should take 20–30 min. I'll use it to
 
 **Block 1 – Data Pipelines:**
 - Datasets used
+- Pipeline structure (monolithic? modular?)
 - Key cleaning/transformation steps
 - BigQuery artifacts you created
-- One thing you'd change
+- Cloud Storage artifacts you created
 
 ---
 
@@ -71,16 +77,15 @@ This is the main prep I'm asking for. It should take 20–30 min. I'll use it to
 
 **Block 3 – UI / Application:**
 - How you described your primary users
-- One design decision you're proud of
-- One thing you'd add with more time
+- Specific choices you made to meet your users' needs
 
 ---
 
 ## What to expect in class for each block
 
-1. We look at the comparison table together
+1. Based on your team's responses in the Google Form, I'll determine the order in which teams present
 2. Each team takes ~5 min to walk us through their approach
-   - No slides! Pull up your actual code, your GCP Workflow graph, your BigQuery schema
+   - No slides! Pull up your actual code, your GCP Workflow graph, your BigQuery schema, your GitHub Pages site
 3. Open discussion for ~20 min
 
 ---
@@ -125,14 +130,14 @@ This is the main prep I'm asking for. It should take 20–30 min. I'll use it to
 
 **Discussion we'll have:**
 - What features appeared across multiple teams?
-- Where did teams make different trade-offs between audiences?
+- Where did teams make different trade-offs between audiences? Why?
 - What would it take to actually deploy one of these?
 
 ---
 
 ## To summarize
 
-1. Fill in the Google Sheet by **Wednesday morning**
+1. Fill in the Google Form by **Wednesday morning**
 2. Come to class ready to talk through your work — no slides, no script
 3. Pull up your actual code, pipeline, and app
 
