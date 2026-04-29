@@ -29,13 +29,13 @@ The goal is to compare approaches and reflect together, not to show a polished p
 
 | Time | Block |
 |------|-------|
-| 1:15–1:25 | **Arrive & settle in** |
-| 1:25–2:10 | **Block 1:** Data Pipelines |
-| 2:15–2:20 | **Break** |
-| 2:20–3:20 | **Block 2:** Sale Price Modeling |
-| 3:20–3:30 | **Break** |
-| 3:30–4:30 | **Block 3:** UI & Application |
-| 4:30–4:45 | **Wrap-up** |
+| 1:45–1:55 | **Arrive & settle in** |
+| 1:55–2:40 | **Block 1:** Data Pipelines |
+| 2:40–2:45 | **Break** |
+| 2:45–3:30 | **Block 2:** Sale Price Modeling |
+| 3:30–3:35 | **Break** |
+| 3:35–4:20 | **Block 3:** UI & Application |
+| 4:20–4:35 | **Wrap-up** |
 
 Each block: teams share (~5 min each), then open discussion (~15-30 min).
 
