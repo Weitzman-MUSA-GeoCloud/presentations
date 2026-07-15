@@ -319,3 +319,68 @@ resource "google_project_iam_member" "admins" {
 output "team_members" {
   value = local.team_members_emails
 }
+
+resource "google_artifact_registry_repository" "gcf_artifacts" {
+  project       = google_project.project.project_id
+  location      = var.location
+  repository_id = "gcf-artifacts"
+  description   = "Repository used by Cloud Functions for storing function docker images"
+  format        = "DOCKER"
+
+  cleanup_policy_dry_run = false
+
+  # Keep most recent 2 versions
+  cleanup_policies {
+    id     = "keep-most-recent-2"
+    action = "KEEP"
+    most_recent_versions {
+      keep_count = 2
+    }
+  }
+
+  # Delete any older versions not matched by the KEEP action
+  cleanup_policies {
+    id     = "delete-old-versions"
+    action = "DELETE"
+    condition {
+      tag_state = "ANY"
+    }
+  }
+
+  depends_on = [
+    google_project_service.artifactregistry
+  ]
+}
+
+resource "google_artifact_registry_repository" "cloud_run_source_deploy" {
+  project       = google_project.project.project_id
+  location      = var.location
+  repository_id = "cloud-run-source-deploy"
+  description   = "Repository used by Cloud Run Source Deployments"
+  format        = "DOCKER"
+
+  cleanup_policy_dry_run = false
+
+  # Keep most recent 2 versions
+  cleanup_policies {
+    id     = "keep-most-recent-2"
+    action = "KEEP"
+    most_recent_versions {
+      keep_count = 2
+    }
+  }
+
+  # Delete any older versions not matched by the KEEP action
+  cleanup_policies {
+    id     = "delete-old-versions"
+    action = "DELETE"
+    condition {
+      tag_state = "ANY"
+    }
+  }
+
+  depends_on = [
+    google_project_service.artifactregistry
+  ]
+}
+

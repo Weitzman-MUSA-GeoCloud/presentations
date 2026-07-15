@@ -211,3 +211,19 @@ output "team_members_team6" {
 #   to = module.team_project[each.key].google_project_iam_custom_role.team_member
 #   id = "${each.key}/teamMember"
 # }
+
+# # Import gcf-artifacts for all 7 teams where it already exists
+# import {
+#   for_each = local.project_team_nums
+#   to       = module.team_project[each.key].google_artifact_registry_repository.gcf_artifacts
+#   id       = "projects/musa5090${local.project_year}-${each.key}/locations/us-east4/repositories/gcf-artifacts"
+# }
+
+# # Import cloud-run-source-deploy only for the 6 teams that have it.
+# # For team5, Terraform will automatically create the repository with the cleanup policy.
+# import {
+#   for_each = toset(["team1", "team2", "team3", "team4", "team6", "team7"])
+#   to       = module.team_project[each.key].google_artifact_registry_repository.cloud_run_source_deploy
+#   id       = "projects/musa5090${local.project_year}-${each.key}/locations/us-east4/repositories/cloud-run-source-deploy"
+# }
+
