@@ -65,6 +65,9 @@ gcloud iam roles describe roles/cloudfunctions.developer --format json | jq -r '
 # Deploying Workflows
 gcloud iam roles describe roles/workflows.admin --format json | jq -r '.includedPermissions | join("\n")' > permissions/workflows_admin.txt
 
+# Managing Secrets
+gcloud iam roles describe roles/secretmanager.admin --format json | jq -r '.includedPermissions | join("\n")' > permissions/secretmanager_admin.txt
+
 # Viewing logs and errors
 gcloud iam roles describe roles/logging.viewer --format json | jq -r '.includedPermissions | join("\n")' > permissions/logging_viewer.txt
 

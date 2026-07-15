@@ -63,6 +63,11 @@ resource "google_project_service" "iam" {
   service = "iam.googleapis.com"
 }
 
+resource "google_project_service" "secretmanager" {
+  project = google_project.project.project_id
+  service = "secretmanager.googleapis.com"
+}
+
 resource "google_storage_bucket" "raw_data" {
   project                     = google_project.project.project_id
   name                        = format("%s-raw_data", google_project.project.project_id)
@@ -202,6 +207,7 @@ resource "google_project_iam_member" "default_compute_run_builder" {
 # - Cloud Functions Invoker
 # - Cloud Run Invoker
 # - Workflows Invoker
+# - Secret Manager Secret Accessor
 
 resource "google_service_account" "data_pipeline_user" {
   project      = google_project.project.project_id
@@ -256,6 +262,12 @@ resource "google_project_iam_member" "data_pipeline_user_workflows_invoker" {
   member  = "serviceAccount:${google_service_account.data_pipeline_user.email}"
 }
 
+resource "google_project_iam_member" "data_pipeline_user_secret_manager_secret_accessor" {
+  project = google_project.project.project_id
+  role    = "roles/secretmanager.secretAccessor"
+  member  = "serviceAccount:${google_service_account.data_pipeline_user.email}"
+}
+
 # Custom Role:
 # All students should be granted a `Team Member` role that is a combination of
 # the permissions from the Project IAM Admin role and any other roles we want.
@@ -282,6 +294,7 @@ resource "google_project_iam_custom_role" "team_member" {
       split("\n", file("${path.module}/../permissions/logging_viewer.txt")),
       split("\n", file("${path.module}/../permissions/errorreporting_user.txt")),
       split("\n", file("${path.module}/../permissions/monitoring_viewer.txt")),
+      split("\n", file("${path.module}/../permissions/secretmanager_admin.txt")),
     ),
     ["", "resourcemanager.projects.list"]
   )
